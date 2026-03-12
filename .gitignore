@@ -4,6 +4,9 @@ dist
 node_modules
 
 # Script
+data
+dist
+__pycache__
 
 # Server
 /server/records

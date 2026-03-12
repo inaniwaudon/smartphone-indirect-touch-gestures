@@ -5,22 +5,28 @@ This repository contains the source code of [Exploring Indirect Touch Gestures f
 
 ## Overview
 
+This repository consists of the following directories.
 
 - `/server`: WebSocket server
-- `/script`: Classification model
-- `/web`: ??
+- `/script`: Script for machine learning
+- `/web`: Web application for pilot study and demonstration of gesture classification
 
 
 ## Usage
 
-The application runs on Node.js 22.17.1 (server and web) and Python 3.12.3 (script).
+The WebSocket server and the web application run on Node.js 22.17.1 (server and web).
+The script for machine learning runs on Python 3.12.3 (script).
+The web application has been confirmed to work on the default browsers of iPhone 17 (iOS 26.2.1) and Meta Quest 3 (Horizon OS).
 
 ### Launch the WebSocket server
+
+To use the web application, you need to start the WebSocket server in advance.
 
 Execute the following commands.
 
 ```bash
 cd server
+# Install dependencies
 yarn
 # In default, the server is launched on ws://<YOUR_LOCAL_IP_ADDRESS>:8765
 yarn run start
@@ -43,10 +49,19 @@ Execute the following commands.
 
 ```bash
 cd web
+# Install dependencies
 yarn
-the server is launched on 
 # Launched on http://<YOUR_LOCAL_IP_ADDESS>:5173
 yarn dev
+```
+
+### Execute the script for machine learning
+
+Execute the following commands.
+
+```bash
+python main.py --window-size 500
+python main.py --window-size 300 --no-cross-validation
 ```
 
 Access the following URL using the browser of a smartphone and an HMD.
@@ -61,6 +76,12 @@ The application supports progressive web application (PWA), so adding it to the 
 | Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=operation> |
 | Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=mirror> |
 
+### Execute the script for machine learning
+
+```bash
+cd script
+python main.py
+```
 
 ## Publication
 
