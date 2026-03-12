@@ -1,0 +1,33 @@
+{
+  "name": "smartphone-indirect-touch-gestures-web",
+  "author": "Yuto Wada",
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc -b && vite build",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@tanstack/react-router": "^1.132.33",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.11",
+    "@eslint/js": "^9.30.1",
+    "@tanstack/router-plugin": "^1.132.37",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "globals": "^16.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  }
+}

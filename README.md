@@ -28,12 +28,14 @@ yarn run start
 
 ### Launch the web application
 
-Set the following environment variables and execute the following commands.
+Set the following environment variables to `.env`.
 
 ```bash:.env
 # e.g. ws://172.16.0.1:5173
 VITE_WEBSOCKET_URL=<WEBSOCKET_URL>
 ```
+
+Execute the following commands.
 
 ```bash
 cd web
