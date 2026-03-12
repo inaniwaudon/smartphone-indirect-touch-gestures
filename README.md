@@ -1,6 +1,8 @@
 # smartphone-indirect-touch-gesutres
 
-This repository contains the source code of [Exploring Indirect Touch Gestures for Smartphone Interaction within VR Environments](https://doi.org/10.1145/3772363.3798511).
+This repository contains the source code of the experimental application and the gesture-recognition system of [Exploring Indirect Touch Gestures for Smartphone Interaction within VR Environments](https://doi.org/10.1145/3772363.3798511) (CHI EA '26).
+
+![Teaser movie](teaser.gif)
 
 
 ## Overview
@@ -66,10 +68,10 @@ The application supports progressive web application (PWA), so adding it to the 
 
 | Page | Device | URL |
 | --- | --- | --- |
-| Pointing | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/pointing/?mode=operation> |
-| Pointing | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/pointing/?mode=mirror> |
-| Scrolling | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/scrolling/?mode=operation> |
-| Scrolling | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/scrolling?mode=mirror> |
+| Pointing task | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/pointing/?mode=operation> |
+| Pointing task | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/pointing/?mode=mirror> |
+| Scrolling task | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/scrolling/?mode=operation> |
+| Scrolling task | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/scrolling?mode=mirror> |
 | Gesture classification | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=operation> |
 | Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=mirror> |
 
@@ -79,7 +81,7 @@ The application supports progressive web application (PWA), so adding it to the 
 Copy the data recorded under `/server/records` to the following directories.
 
 ```
-script/
+/script/
 └── data/
     ├── pointing-xxxx.json  # Data for a pointing task
     ├── ...
