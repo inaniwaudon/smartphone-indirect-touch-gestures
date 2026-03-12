@@ -28,11 +28,15 @@ yarn run start
 
 ### Launch the web application
 
-Set the following environment variables to `.env`.
+Edit the following environment variables to `.env`.
 
 ```bash:.env
-# e.g. ws://172.16.0.1:5173
-VITE_WEBSOCKET_URL=<WEBSOCKET_URL>
+# WebSocket server URL
+VITE_WEBSOCKET_URL=ws://172.16.0.1:8765
+# Maximum number of trials
+VITE_MAX_TRIAL=25
+# Distance of the column from the initial position in the scrolling task
+VITE_SCROLL_ROW_DISTANCE=30
 ```
 
 Execute the following commands.

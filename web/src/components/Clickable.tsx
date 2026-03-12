@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useContext, useEffect, useRef } from "react";
 
 import { DataContext } from "@/libs/data";
-import { DRAGGING_TIME_THRESHOLD } from "@/libs/utils";
+import { DRAGGING_TIME_THRESHOLD } from "@/libs/env";
 
 const Wrapper = styled.div<{ height?: string }>`
   height: ${({ height }) => height ?? "auto"};
@@ -42,7 +42,7 @@ export const Clickable = ({
 
 		// When hovered but the pointer is gone, handle tap/drag end
 		if (!lastPointer) {
-			// When drag ended
+			// Dragging ended
 			if (draggingTimeRef.current) {
 				onDraggingEnd?.();
 				draggingTimeRef.current = null;

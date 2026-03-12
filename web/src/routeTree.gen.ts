@@ -9,13 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ScrollIndexRouteImport } from './routes/scroll/index'
+import { Route as ScrollingIndexRouteImport } from './routes/scrolling/index'
 import { Route as PointingIndexRouteImport } from './routes/pointing/index'
 import { Route as ClassificationIndexRouteImport } from './routes/classification/index'
 
-const ScrollIndexRoute = ScrollIndexRouteImport.update({
-  id: '/scroll/',
-  path: '/scroll/',
+const ScrollingIndexRoute = ScrollingIndexRouteImport.update({
+  id: '/scrolling/',
+  path: '/scrolling/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PointingIndexRoute = PointingIndexRouteImport.update({
@@ -32,40 +32,40 @@ const ClassificationIndexRoute = ClassificationIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/classification': typeof ClassificationIndexRoute
   '/pointing': typeof PointingIndexRoute
-  '/scroll': typeof ScrollIndexRoute
+  '/scrolling': typeof ScrollingIndexRoute
 }
 export interface FileRoutesByTo {
   '/classification': typeof ClassificationIndexRoute
   '/pointing': typeof PointingIndexRoute
-  '/scroll': typeof ScrollIndexRoute
+  '/scrolling': typeof ScrollingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/classification/': typeof ClassificationIndexRoute
   '/pointing/': typeof PointingIndexRoute
-  '/scroll/': typeof ScrollIndexRoute
+  '/scrolling/': typeof ScrollingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/classification' | '/pointing' | '/scroll'
+  fullPaths: '/classification' | '/pointing' | '/scrolling'
   fileRoutesByTo: FileRoutesByTo
-  to: '/classification' | '/pointing' | '/scroll'
-  id: '__root__' | '/classification/' | '/pointing/' | '/scroll/'
+  to: '/classification' | '/pointing' | '/scrolling'
+  id: '__root__' | '/classification/' | '/pointing/' | '/scrolling/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   ClassificationIndexRoute: typeof ClassificationIndexRoute
   PointingIndexRoute: typeof PointingIndexRoute
-  ScrollIndexRoute: typeof ScrollIndexRoute
+  ScrollingIndexRoute: typeof ScrollingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/scroll/': {
-      id: '/scroll/'
-      path: '/scroll'
-      fullPath: '/scroll'
-      preLoaderRoute: typeof ScrollIndexRouteImport
+    '/scrolling/': {
+      id: '/scrolling/'
+      path: '/scrolling'
+      fullPath: '/scrolling'
+      preLoaderRoute: typeof ScrollingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pointing/': {
@@ -88,7 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   ClassificationIndexRoute: ClassificationIndexRoute,
   PointingIndexRoute: PointingIndexRoute,
-  ScrollIndexRoute: ScrollIndexRoute,
+  ScrollingIndexRoute: ScrollingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

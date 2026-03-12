@@ -1,3 +1,12 @@
+.claude
+.vscode
+dist
 node_modules
 
+# Script
+
+# Server
 /server/records
+
+# Web
+.tanstack
