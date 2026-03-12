@@ -111,8 +111,8 @@ def train(X_train, y_train, X_test, y_test):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--window-size", type=int, required=True)
-    parser.add_argument("--hold-out-validation", action="store_true", default=True)
-    parser.add_argument("--cross-validation", action="store_true", default=True)
+    parser.add_argument("--disable-hold-out", action="store_true", default=False)
+    parser.add_argument("--disable-cross", action="store_true", default=False)
     args = parser.parse_args()
 
     processed_data = []
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     X = X.fillna(0)
 
     # Hold-out validation
-    if args.hold_out_validation:
+    if args.disable_hold_out:
         X_train, X_test, y_train, y_test = train_test_split(
             X,
             y,
@@ -182,7 +182,7 @@ if __name__ == "__main__":
             f.write(code)
 
     # Cross-validation
-    if args.cross_validation:
+    if args.disable_cross:
         skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
         cv_scores = []
         all_y_true = []

@@ -70,7 +70,7 @@ The application supports progressive web application (PWA), so adding it to the 
 | Pointing | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/pointing/?mode=mirror> |
 | Scrolling | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/scrolling/?mode=operation> |
 | Scrolling | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/scrolling?mode=mirror> |
-| Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=operation> |
+| Gesture classification | Smartphone | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=operation> |
 | Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=mirror> |
 
 
@@ -92,7 +92,7 @@ cp -r server/records script/data
 ```
 
 Execute the following commands.
-If you run with `--hold-out-validation`, it will output a model for JavaScript.
+The script will output the model in JavaScript as well as the result of hold-out validation and cross-validation.
 
 ```bash
 cd script
@@ -100,11 +100,9 @@ cd script
 # Install dependencies
 pip install -r requirements.txt
 
-# Execute learning using 200 ms window size and run hold-out validation
-python main.py --window-size 200 --hold-out-validation
-
-# Execute learning using 500 ms window size and run cross-validation
-python main.py --window-size 500 --cross-validation
+# Execute machine learning
+python main.py --window-size 200
+python main.py --window-size 500
 ```
 
 
