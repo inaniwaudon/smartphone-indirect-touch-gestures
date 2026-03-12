@@ -16,7 +16,7 @@ This repository consists of the following directories.
 
 The WebSocket server and the web application run on Node.js 22.17.1 (server and web).
 The script for machine learning runs on Python 3.12.3 (script).
-The web application has been confirmed to work on the default browsers of iPhone 17 (iOS 26.2.1) and Meta Quest 3 (Horizon OS).
+The web application has been confirmed to work on the default browsers of iPhone 17 (iOS 26.2.1) and Meta Quest 3 (Horizon OS 2.1).
 
 
 ### Launch the WebSocket server
@@ -108,7 +108,7 @@ python main.py --window-size 500
 
 ## Publication
 
-Yuto Wada, Myungguen Choi, and Buntarou Shizuki. Exploring Indirect Touch Gestures for Smartphone Interaction within VR Environments. In Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems (CHI EA ’26), April 13–17, 2026, Barcelona, Spain. Association for Computing Machinery, 6 pages. <https://doi.org/10.1145/3772363.3798511>. [PDF](https://www.iplab.cs.tsukuba.ac.jp/paper/international/wada_CHIEA2026.pdf) [Video](https://www.iplab.cs.tsukuba.ac.jp/~wada/assets/chiea2026-movie.mp4)
+Yuto Wada, Myungguen Choi, and Buntarou Shizuki. Exploring Indirect Touch Gestures for Smartphone Interaction within VR Environments. In Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems (CHI EA ’26), April 13–17, 2026, Barcelona, Spain. Association for Computing Machinery, 6 pages. <https://doi.org/10.1145/3772363.3798511>. [\[PDF\]](https://www.iplab.cs.tsukuba.ac.jp/paper/international/wada_CHIEA2026.pdf) [\[Video\]](https://www.iplab.cs.tsukuba.ac.jp/~wada/assets/chiea2026-movie.mp4)
 
 ```bibtex
 @inproceedings{indirect-gestures,
