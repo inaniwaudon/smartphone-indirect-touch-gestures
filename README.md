@@ -18,6 +18,7 @@ The WebSocket server and the web application run on Node.js 22.17.1 (server and 
 The script for machine learning runs on Python 3.12.3 (script).
 The web application has been confirmed to work on the default browsers of iPhone 17 (iOS 26.2.1) and Meta Quest 3 (Horizon OS).
 
+
 ### Launch the WebSocket server
 
 To use the web application, you need to start the WebSocket server in advance.
@@ -26,11 +27,14 @@ Execute the following commands.
 
 ```bash
 cd server
+
 # Install dependencies
 yarn
+
 # In default, the server is launched on ws://<YOUR_LOCAL_IP_ADDRESS>:8765
 yarn run start
 ```
+
 
 ### Launch the web application
 
@@ -49,19 +53,12 @@ Execute the following commands.
 
 ```bash
 cd web
+
 # Install dependencies
 yarn
-# Launched on http://<YOUR_LOCAL_IP_ADDESS>:5173
+
+# Launch on http://<YOUR_LOCAL_IP_ADDESS>:5173
 yarn dev
-```
-
-### Execute the script for machine learning
-
-Execute the following commands.
-
-```bash
-python main.py --window-size 500
-python main.py --window-size 300 --no-cross-validation
 ```
 
 Access the following URL using the browser of a smartphone and an HMD.
@@ -76,16 +73,44 @@ The application supports progressive web application (PWA), so adding it to the 
 | Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=operation> |
 | Gesture classification | HMD | <http://YOUR_LOCAL_IP_ADDESS:5173/classification?mode=mirror> |
 
+
 ### Execute the script for machine learning
+
+Copy the data recorded under `/server/records` to the following directories.
+
+```
+script/
+└── data/
+    ├── pointing-xxxx.json  # Data for a pointing task
+    ├── ...
+    ├── scroll-xxxx.json    # Data for a scroll task
+    └── ...
+```
+
+```bash
+cp -r server/records script/data
+```
+
+Execute the following commands.
+If you run with `--hold-out-validation`, it will output a model for JavaScript.
 
 ```bash
 cd script
-python main.py
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Execute learning using 200 ms window size and run hold-out validation
+python main.py --window-size 200 --hold-out-validation
+
+# Execute learning using 500 ms window size and run cross-validation
+python main.py --window-size 500 --cross-validation
 ```
+
 
 ## Publication
 
-Yuto Wada, Myungguen Choi, and Buntarou Shizuki. Exploring Indirect Touch Gestures for Smartphone Interaction within VR Environments. In Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems (CHI EA ’26), April 13–17, 2026, Barcelona, Spain. Association for Computing Machinery, 6 pages. <https://doi.org/10.1145/3772363.3798511>. [PDF](https://www.iplab.cs.tsukuba.ac.jp/paper/international/wada_CHIEA2026.pdf) [Video]
+Yuto Wada, Myungguen Choi, and Buntarou Shizuki. Exploring Indirect Touch Gestures for Smartphone Interaction within VR Environments. In Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems (CHI EA ’26), April 13–17, 2026, Barcelona, Spain. Association for Computing Machinery, 6 pages. <https://doi.org/10.1145/3772363.3798511>. [PDF](https://www.iplab.cs.tsukuba.ac.jp/paper/international/wada_CHIEA2026.pdf) [Video](https://www.iplab.cs.tsukuba.ac.jp/~wada/assets/chiea2026-movie.mp4)
 
 ```bibtex
 @inproceedings{indirect-gestures,

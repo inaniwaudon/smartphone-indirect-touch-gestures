@@ -19,13 +19,8 @@ def load_json_data(data_dir="data"):
         filename = os.path.basename(json_file)
         label = filename.split('-')[0]  # 'pointing' or 'scroll'
 
-        # Extract metadata from directory name
-        dir_name = os.path.basename(os.path.dirname(json_file))
-
-        # pointing: get target size from JSON (e.g. pointing-main1)
-        # scroll: get number of scroll rows from directory name (e.g. scroll-main1-5 -> 5)
+        # pointing: get target size from JSON
         target_size = None
-        scroll_rows = None
 
         if label == 'pointing':
             # Get target size from JSON
@@ -39,11 +34,6 @@ def load_json_data(data_dir="data"):
                             if rect.get('id') == target_id:
                                 target_size = rect.get('size')
                                 break
-        elif label == 'scroll':
-            # Get number of scroll rows from directory name (e.g. scroll-main1-5 -> 5)
-            parts = dir_name.split('-')
-            if len(parts) >= 3:
-                scroll_rows = int(parts[-1])
 
         # Extract each touch point from gestures data
         if 'data' in data and 'gestures' in data['data']:
@@ -70,7 +60,6 @@ def load_json_data(data_dir="data"):
                             'x': point['x'],
                             'y': point['y'],
                             'target_size': target_size,
-                            'scroll_rows': scroll_rows,
                             'file_path': json_file,
                             'filename': os.path.basename(json_file),
                         })
