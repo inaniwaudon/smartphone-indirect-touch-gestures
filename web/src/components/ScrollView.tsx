@@ -12,23 +12,23 @@ const Content = styled.div<{ y: number }>`
 `;
 
 interface ScrollViewProps {
-	y: number;
-	scrollProps: {
-		onPointerDown: (e: React.PointerEvent) => void;
-		onPointerMove: (e: React.PointerEvent) => void;
-		onPointerUp: () => void;
-		onPointerCancel: () => void;
-		style: React.CSSProperties;
-	};
-	children: React.ReactNode;
+  y: number;
+  scrollProps: {
+    onPointerDown: (e: React.PointerEvent) => void;
+    onPointerMove: (e: React.PointerEvent) => void;
+    onPointerUp: () => void;
+    onPointerCancel: () => void;
+    style: React.CSSProperties;
+  };
+  children: React.ReactNode;
 }
 
 const ScrollView = ({ y, scrollProps, children }: ScrollViewProps) => {
-	return (
-		<Wrapper {...scrollProps}>
-			<Content y={y}>{children}</Content>
-		</Wrapper>
-	);
+  return (
+    <Wrapper {...scrollProps}>
+      <Content y={y}>{children}</Content>
+    </Wrapper>
+  );
 };
 
 export default ScrollView;

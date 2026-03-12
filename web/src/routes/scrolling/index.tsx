@@ -60,181 +60,181 @@ const Completed = styled.div`
 `;
 
 const Index = () => {
-	const { mode, gestures, content, wrapperHeight, resetGestures, setContent } =
-		useContext(DataContext);
+  const { mode, gestures, content, wrapperHeight, resetGestures, setContent } =
+    useContext(DataContext);
 
-	const onScrollEnd = () => {
-		if (mode === "mirror") {
-			return;
-		}
-		change(false);
-	};
+  const onScrollEnd = () => {
+    if (mode === "mirror") {
+      return;
+    }
+    change(false);
+  };
 
-	const {
-		y,
-		scrollProps,
-		lastInertiasRef,
-		lastVelocitiesRef,
-		forceSetY,
-		resetLastValues,
-	} = useScroll(onScrollEnd);
+  const {
+    y,
+    scrollProps,
+    lastInertiasRef,
+    lastVelocitiesRef,
+    forceSetY,
+    resetLastValues,
+  } = useScroll(onScrollEnd);
 
-	const [trial, setTrial] = useState<number>(-2);
-	const [yArray, setYArray] = useState<{ y: number; timestamp: number }[]>([]);
-	const [targetIndex, setTargetIndex] = useState(-1);
-	const [initialIndex, setInitialIndex] = useState(-1);
+  const [trial, setTrial] = useState<number>(-2);
+  const [yArray, setYArray] = useState<{ y: number; timestamp: number }[]>([]);
+  const [targetIndex, setTargetIndex] = useState(-1);
+  const [initialIndex, setInitialIndex] = useState(-1);
 
-	const rowHeight = wrapperHeight / 10;
-	const detectionRectHeight = rowHeight * 1.5;
-	const detectionRectY = (wrapperHeight - detectionRectHeight) / 2;
+  const rowHeight = wrapperHeight / 10;
+  const detectionRectHeight = rowHeight * 1.5;
+  const detectionRectY = (wrapperHeight - detectionRectHeight) / 2;
 
-	const calculateTargetY = (index: number) => {
-		return rowHeight * index;
-	};
+  const calculateTargetY = (index: number) => {
+    return rowHeight * index;
+  };
 
-	const fitsInDetectionRect = () => {
-		if (targetIndex === -1) {
-			return false;
-		}
-		const targetRowY = calculateTargetY(targetIndex);
-		return (
-			y + detectionRectY <= targetRowY &&
-			y + detectionRectY + detectionRectHeight >= targetRowY + rowHeight
-		);
-	};
+  const fitsInDetectionRect = () => {
+    if (targetIndex === -1) {
+      return false;
+    }
+    const targetRowY = calculateTargetY(targetIndex);
+    return (
+      y + detectionRectY <= targetRowY &&
+      y + detectionRectY + detectionRectHeight >= targetRowY + rowHeight
+    );
+  };
 
-	const initialize = async () => {
-		setTrial(-1);
-		await audioContext.resume();
-		playSuccessBeep();
-		setTrial(0);
-	};
+  const initialize = async () => {
+    setTrial(-1);
+    await audioContext.resume();
+    playSuccessBeep();
+    setTrial(0);
+  };
 
-	const change = (initial: boolean) => {
-		if (!initial && !fitsInDetectionRect()) {
-			return;
-		}
+  const change = (initial: boolean) => {
+    if (!initial && !fitsInDetectionRect()) {
+      return;
+    }
 
-		// On selection complete
-		if (!initial) {
-			playSuccessBeep();
-			sendData({
-				type: "scroll",
-				trial,
-				initialIndex,
-				targetIndex,
-				yArray,
-				timestamp: Date.now(),
-				gestures,
-				lastInertias: lastInertiasRef.current,
-				lastVelocities: lastVelocitiesRef.current,
-			});
-			setTrial((prev) => prev + 1);
-		}
-		resetGestures();
-		setYArray([]);
-		resetLastValues();
+    // On selection complete
+    if (!initial) {
+      playSuccessBeep();
+      sendData({
+        type: "scroll",
+        trial,
+        initialIndex,
+        targetIndex,
+        yArray,
+        timestamp: Date.now(),
+        gestures,
+        lastInertias: lastInertiasRef.current,
+        lastVelocities: lastVelocitiesRef.current,
+      });
+      setTrial((prev) => prev + 1);
+    }
+    resetGestures();
+    setYArray([]);
+    resetLastValues();
 
-		// Set the initial displayed row randomly
-		const displayedIndex = Math.floor(Math.random() * 1000);
-		setInitialIndex(displayedIndex);
+    // Set the initial displayed row randomly
+    const displayedIndex = Math.floor(Math.random() * 1000);
+    setInitialIndex(displayedIndex);
 
-		// Set target row to stay within 1–1000
-		let newTargetIndex: number;
-		if (displayedIndex - SCROLL_ROW_DISTANCE < 10) {
-			newTargetIndex = displayedIndex + SCROLL_ROW_DISTANCE;
-		} else if (displayedIndex + SCROLL_ROW_DISTANCE > 990) {
-			newTargetIndex = displayedIndex - SCROLL_ROW_DISTANCE;
-		} else {
-			newTargetIndex =
-				displayedIndex +
-				(Math.random() < 0.5 ? SCROLL_ROW_DISTANCE : -SCROLL_ROW_DISTANCE);
-		}
+    // Set target row to stay within 1–1000
+    let newTargetIndex: number;
+    if (displayedIndex - SCROLL_ROW_DISTANCE < 10) {
+      newTargetIndex = displayedIndex + SCROLL_ROW_DISTANCE;
+    } else if (displayedIndex + SCROLL_ROW_DISTANCE > 990) {
+      newTargetIndex = displayedIndex - SCROLL_ROW_DISTANCE;
+    } else {
+      newTargetIndex =
+        displayedIndex +
+        (Math.random() < 0.5 ? SCROLL_ROW_DISTANCE : -SCROLL_ROW_DISTANCE);
+    }
 
-		// Update with a delay to avoid interference with user taps
-		setTargetIndex(-1);
-		setTimeout(() => {
-			const newY =
-				calculateTargetY(displayedIndex) -
-				detectionRectY -
-				(detectionRectHeight - rowHeight) / 2;
-			forceSetY(newY);
-			setTargetIndex(newTargetIndex);
-		}, 1000);
-	};
+    // Update with a delay to avoid interference with user taps
+    setTargetIndex(-1);
+    setTimeout(() => {
+      const newY =
+        calculateTargetY(displayedIndex) -
+        detectionRectY -
+        (detectionRectHeight - rowHeight) / 2;
+      forceSetY(newY);
+      setTargetIndex(newTargetIndex);
+    }, 1000);
+  };
 
-	useEffect(() => {
-		setYArray((prev) => [...prev, { y, timestamp: Date.now() }]);
-	}, [y]);
+  useEffect(() => {
+    setYArray((prev) => [...prev, { y, timestamp: Date.now() }]);
+  }, [y]);
 
-	// biome-ignore lint: dependency on wrapperHeight
-	useEffect(() => {
-		// Initialize
-		if (mode === "operation") {
-			change(true);
-		}
-		// Workaround: wrapperHeight is initially 0
-	}, [wrapperHeight]);
+  // biome-ignore lint: dependency on wrapperHeight
+  useEffect(() => {
+    // Initialize
+    if (mode === "operation") {
+      change(true);
+    }
+    // Workaround: wrapperHeight is initially 0
+  }, [wrapperHeight]);
 
-	useEffect(() => {
-		setContent((prev: any) => ({
-			...prev,
-			trial,
-			y,
-			targetIndex,
-		}));
-	}, [trial, y, targetIndex, setContent]);
+  useEffect(() => {
+    setContent((prev: any) => ({
+      ...prev,
+      trial,
+      y,
+      targetIndex,
+    }));
+  }, [trial, y, targetIndex, setContent]);
 
-	useEffect(() => {
-		// Sync mirror screen
-		if (mode === "mirror" && typeof content.y === "number") {
-			forceSetY(content.y);
-		}
-	});
+  useEffect(() => {
+    // Sync mirror screen
+    if (mode === "mirror" && typeof content.y === "number") {
+      forceSetY(content.y);
+    }
+  });
 
-	// Rendering
-	const finalTargetIndex =
-		mode === "operation" ? targetIndex : (content.targetIndex ?? 0);
-	const finalTrial = mode === "operation" ? trial : (content.trial ?? 0);
+  // Rendering
+  const finalTargetIndex =
+    mode === "operation" ? targetIndex : (content.targetIndex ?? 0);
+  const finalTrial = mode === "operation" ? trial : (content.trial ?? 0);
 
-	return finalTrial < 0 ? (
-		<Start onClick={initialize}>
-			{finalTrial === -2 ? (
-				<>
-					Tap the screen
-					<br />
-					to start
-					<br />
-					trial: {MAX_TRIAL}
-					<br />
-					diff: {SCROLL_ROW_DISTANCE}
-				</>
-			) : (
-				<>Loading...</>
-			)}
-		</Start>
-	) : finalTrial < MAX_TRIAL ? (
-		<div>
-			<ScrollView y={y} scrollProps={scrollProps}>
-				{[...Array(1000)].map((_, index) => {
-					const l = index % 3 === 0 ? 20 : index % 3 === 1 ? 40 : 60;
-					return (
-						<Row color={`hsl(210, 70%, ${l}%)`} height={rowHeight} key={index}>
-							{index}
-						</Row>
-					);
-				})}
-			</ScrollView>
-			<TargetIndex>
-				{finalTargetIndex > 0 ? `Aim ${finalTargetIndex}` : "Waiting"}
-			</TargetIndex>
-			<DetectionRect y={detectionRectY} height={detectionRectHeight} />
-		</div>
-	) : (
-		<Completed>Completed</Completed>
-	);
+  return finalTrial < 0 ? (
+    <Start onClick={initialize}>
+      {finalTrial === -2 ? (
+        <>
+          Tap the screen
+          <br />
+          to start
+          <br />
+          trial: {MAX_TRIAL}
+          <br />
+          diff: {SCROLL_ROW_DISTANCE}
+        </>
+      ) : (
+        <>Loading...</>
+      )}
+    </Start>
+  ) : finalTrial < MAX_TRIAL ? (
+    <div>
+      <ScrollView y={y} scrollProps={scrollProps}>
+        {[...Array(1000)].map((_, index) => {
+          const l = index % 3 === 0 ? 20 : index % 3 === 1 ? 40 : 60;
+          return (
+            <Row color={`hsl(210, 70%, ${l}%)`} height={rowHeight} key={index}>
+              {index}
+            </Row>
+          );
+        })}
+      </ScrollView>
+      <TargetIndex>
+        {finalTargetIndex > 0 ? `Aim ${finalTargetIndex}` : "Waiting"}
+      </TargetIndex>
+      <DetectionRect y={detectionRectY} height={detectionRectHeight} />
+    </div>
+  ) : (
+    <Completed>Completed</Completed>
+  );
 };
 
 export const Route = createFileRoute("/scrolling/")({
-	component: Index,
+  component: Index,
 });
